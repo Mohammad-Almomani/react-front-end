@@ -4,9 +4,10 @@ import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
+
 export default function Person() {
 
-    const [person, setPerson] = useState('');
+    const [person, setPerson] = useState({});
     const [newAge, setNewAge] = useState('');
 
     const handleSubmit = (event) => {
@@ -17,31 +18,19 @@ export default function Person() {
 
 
     const handleNameChange = (event) => {
-        setPerson({
-            "name": event.target.value,
-            "age": person.age,
-            "gender": person.gender
-        })
+        person["name"] = event.target.value;
     }
 
     const handleAgeChange = (event) => {
-        setPerson({
-            "name": person.name,
-            "age": event.target.value,
-            "gender": person.gender
-        })
+        person["age"] = event.target.value;
     }
 
     const handleGenderChange = (event) => {
-        setPerson({
-            "name": person.name,
-            "age": person.age,
-            "gender": event.target.value
-        })
+        person["gender"] = event.target.value;
     }
 
     const sendPersonInfo = async () => {
-     await axios.post('http://localhost:3000/person', {person})
+     await axios.post(`${process.env.REACT_APP_SERVER}/person`, {person})
         .then(res => {
             console.log(res.data);
             setNewAge(res.data);
@@ -58,7 +47,7 @@ export default function Person() {
         <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3">
         <Form.Label>Name</Form.Label>
-        <Form.Control id="name" type="text"  placeholder="Enter Your Name" onChange={handleNameChange}  />
+        <Form.Control data-testid='name-input' id="name" type="text"  placeholder="Enter Your Name" onChange={handleNameChange}  />
       </Form.Group>
       <Form.Group className="mb-3" >
         <Form.Label>age</Form.Label>
@@ -81,11 +70,15 @@ export default function Person() {
     </div>
     <br></br><br></br>
 
-    <div>
+    <div data-testid='personInfo'>
         
-        <h3>Name: {person.name}</h3>
-        <h3>Age: {person.age}</h3>
-        <h3>Gender: {person.gender}</h3>
+        {person.age && 
+            <>
+            <h3 >Name: {person.name}</h3>
+            <h3>Age: {person.age}</h3>
+            <h3>Gender: {person.gender}</h3>
+            </>
+        }
         {newAge && <h3>New Age: {newAge}</h3>}
     </div>
     </>

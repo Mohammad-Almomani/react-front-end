@@ -3,7 +3,7 @@ import Person from './components/Person';
 
 function App() {
   return (
-    <div className="App">
+    <div data-testid='title' className="App">
      <h1>Useless New Age Calculator</h1>
      <Person />
     </div>
