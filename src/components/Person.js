@@ -18,15 +18,19 @@ export default function Person() {
 
 
     const handleNameChange = (event) => {
-        person["name"] = event.target.value;
+        // person["name"] = event.target.value;
+        setPerson({...person, name: event.target.value});
     }
 
     const handleAgeChange = (event) => {
-        person["age"] = event.target.value;
+        // person["age"] = event.target.value;
+        setPerson({...person, age: event.target.value});
     }
 
     const handleGenderChange = (event) => {
-        person["gender"] = event.target.value;
+        // person["gender"] = event.target.value;
+        setPerson({...person, gender: event.target.value});
+
     }
 
     const sendPersonInfo = async () => {
@@ -51,19 +55,19 @@ export default function Person() {
       </Form.Group>
       <Form.Group className="mb-3" >
         <Form.Label>age</Form.Label>
-        <Form.Control id="age"  type="number" placeholder="Enter Your Age" onChange={handleAgeChange}/>
+        <Form.Control data-testid='age-input' id="age"  type="number" placeholder="Enter Your Age" onChange={handleAgeChange} required/>
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Gender</Form.Label>
         {/* <Form.Control   type="text" placeholder="Enter" /> */}
-      <Form.Select id="gender" aria-label="Default select example" onChange={handleGenderChange}>
+      <Form.Select data-testid='gender-select' id="gender" aria-label="Default select example" onChange={handleGenderChange}>
       <option>Choose Gender</option>
       <option value="Male">Male</option>
       <option value="Female">Female</option>
       <option value="Other">Other...</option>
     </Form.Select>
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button data-testid='submit' variant="primary" type="submit">
         Submit
       </Button>
     </Form>
@@ -72,13 +76,10 @@ export default function Person() {
 
     <div data-testid='personInfo'>
         
-        {person.age && 
-            <>
+    
             <h3 >Name: {person.name}</h3>
             <h3>Age: {person.age}</h3>
             <h3>Gender: {person.gender}</h3>
-            </>
-        }
         {newAge && <h3>New Age: {newAge}</h3>}
     </div>
     </>
