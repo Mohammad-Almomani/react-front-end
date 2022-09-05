@@ -14,8 +14,7 @@ export default function Person() {
         event.preventDefault();
         sendPersonInfo(person);
         console.log(person);
-    }
-
+    };
 
     const handleNameChange = (event) => {
         // person["name"] = event.target.value;
